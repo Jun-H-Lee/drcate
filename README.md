@@ -1,2 +1,2 @@
 # drcate
-Doubly robust conditional average treatment function estimation
+Doubly robust uniform confidence band for the conditional average treatment effect funtion
