@@ -176,13 +176,13 @@ program define drcate, eclass
 	if !("`graph'" == "off"){
 		if( "`ci'"=="off"){
 			if ("`ate'" == "off"){
-				dotline ghat x_axis, ytitle("`Y'") ///
+				line ghat x_axis, ytitle("`Y'") ///
 									xtitle("`X'") xlabel(minmax)  ///
 									legend(cols(1) order(1 "CATE"))
 				graph rename CATE
 			}
 			else{
-				line ghat ATE x_axis, ytitle("`Y'") ///
+				line ghat ATE x_axis, lpattern(3 dash) ytitle("`Y'") ///
 									xtitle("`X'") xlabel(minmax)  ///
 									legend(cols(2) order(2 "ATE" 1 "CATE"))
 				graph rename CATE
@@ -197,7 +197,7 @@ program define drcate, eclass
 			}
 			else{
 				graph twoway rarea cbupper cblower x_axis, color(gs14) || line ghat ATE x_axis, ytitle("`Y'") ///
-									xtitle("`X'") xlabel(minmax)  ///
+									lpattern(3 dash) xtitle("`X'") xlabel(minmax)  ///
 									legend(cols(2) order(3 "ATE" 2 "CATE" 1 "`conf'% C.I." ))
 				graph rename CATE
 			}
