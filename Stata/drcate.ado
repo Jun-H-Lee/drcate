@@ -176,7 +176,7 @@ program define drcate, eclass
 	if !("`graph'" == "off"){
 		if( "`ci'"=="off"){
 			if ("`ate'" == "off"){
-				line ghat x_axis, ytitle("`Y'") ///
+				dotline ghat x_axis, ytitle("`Y'") ///
 									xtitle("`X'") xlabel(minmax)  ///
 									legend(cols(1) order(1 "CATE"))
 				graph rename CATE
