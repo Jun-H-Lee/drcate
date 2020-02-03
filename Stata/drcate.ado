@@ -75,7 +75,7 @@ program define drcate, eclass
 		qui logistic `D' `Z'
 		predict pi_hat, pr
 	}	
-	
+
 	if ("`ps'" == "probit"){
 		qui probit `D' `Z'
 		predict pi_hat, pr
@@ -106,14 +106,21 @@ program define drcate, eclass
 		
 		* unconditional ATE
 		ate = mean(psi)
-		
-		** Gaussian Kernel
-		rk = 0.2820948
-		lambda = 0.5
-		h_dpi = kdens_bw_dpi(X, level = 2)
-		h = h_dpi * n^(1/5) * n^(-2/7)
-		
-		*** local linear regression
+	}	
+	
+	// bandwidth selection
+	if (`bwidth'==0){
+		qui lpoly psi `X', ker(gaussian) degree(1) nogr
+		mata: h = `r(bwidth)' * n^(1/5) * n^(-2/7)
+	}
+	else{
+		mata: h = `bwidth'
+	}
+	mata: temp = st_local("bwidth", strofreal(h))
+	
+	
+	// local linear regression
+	mata{
 		N = 100
 		x_min = sort(X, 1)[floor(0.1 * n)]
 		x_max = sort(X, 1)[ceil(0.9 * n)]
@@ -124,15 +131,13 @@ program define drcate, eclass
 		st_store(.,"x_axis", x_axis\J(st_nobs()-rows(x_axis),1,.))
 	}
 	
-	if !(`bwidth' == 0){
-		mata: h = `bwidth'
-	}
-	mata:st_numscalar("bwidth", h)
-	
-	qui lpoly psi `X', ker(gaussian) bwidth(`h') degree(1) at(x_axis) gen(ghat) nogr 
-	mata: ghat = st_data(.,"ghat")
+	qui lpoly psi `X', ker(gaussian) bwidth(`bwidth') degree(1) at(x_axis) gen(ghat) nogr 
 	mata{
+		ghat = st_data(.,"ghat")
+		
 		*** Standard Errors
+		rk = 0.2820948
+		lambda = 0.5
 		fX_hat = J(N, 1, 0)
 		sigmasq_hat = J(N, 1, 0)
 		s_hat = J(N, 1, 0)
