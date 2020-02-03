@@ -72,7 +72,7 @@ package. Type
 {opt alpha} is a real number between 0 and 1. The default is 0.05. 
 
 {phang}
-{opt bwidth} is a positive real number. 
+{opt bwidth} is a positive real number. By default, this value is obtained by multiplying n^(1/5)*n^(-2/7) by the bandwidth determined by the cross-validation.
 
 
 {dlgtab:Graph}
