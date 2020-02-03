@@ -3,8 +3,8 @@ Sokbae Lee, Ryo Okui, and Yoon-Jae Whang. Doubly robust uniform band
 for the conditional average treatment effect function. 2016. Journal of Applied Econometrics
 */
 
-capture prog drop drcate
-program define drcate, eclass
+capture prog drop drcateCV
+program define drcateCV, eclass
     
 	version 15.0
 	syntax varlist(min=4 numeric) [if][in][, alpha(real 0.05) bwidth(real 0) graph(string) ci(string) ps(string) ate(string)]
