@@ -11,7 +11,7 @@
 {title:Syntax}
 
 {p 8 16 2}
-{opt drcate} {varlist}[{cmd:,} {it:options}]
+{opt drcate} {varlist} [{cmd:,} {it:options}]
 
 {synoptset 20 tabbed}{...}
 {synopthdr}
@@ -43,15 +43,6 @@
 After estimating propensity score via logit or probit model, this program calculates augmented inverse probability weight based on linear regression.
 Then, this program conducts local linear regression to estimate conditional average treatment effect function.
 See {browse "https://doi.org/10.1002/jae.2574":{it:this paper}} for details.
-
-{marker dependencies}
-{title:Dependencies}
-
-{pstd}
-{cmd:drcate} requires the {cmd:moremata}
-package. Type
-
-        {com}. {net "describe moremata, from(http://fmwww.bc.edu/repec/bocode/m/)":ssc describe moremata}{txt}
 		
 {marker options}{...}
 {title:Options}
