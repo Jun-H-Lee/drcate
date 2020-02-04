@@ -2,8 +2,8 @@
 
 {title:Title}
 
-{p2colset 9 19 20 2}{...}
-{p2col :{opt drcate} {hline 2}}Doubly robust uniform confidence band for the conditional average treatment effect function {p_end}
+{p2colset 9 21 20 2}{...}
+{p2col :{opt drcateCV} {hline 2}}Doubly robust uniform confidence band for the conditional average treatment effect function {p_end}
 {p2colreset}{...}
 
 
@@ -11,7 +11,7 @@
 {title:Syntax}
 
 {p 8 16 2}
-{opt drcate} {varlist}[{cmd:,} {it:options}]
+{opt drcateCV} {varlist}[{cmd:,} {it:options}]
 
 {synoptset 20 tabbed}{...}
 {synopthdr}
@@ -39,7 +39,7 @@
 {title:Description}
 
 {pstd}
-{cmd:drcate} performs doubly robust conditional average treatment effect estimation. 
+{cmd:drcateCV} performs doubly robust conditional average treatment effect estimation. 
 After estimating propensity score via logit or probit model, this program calculates augmented inverse probability weight based on linear regression.
 Then, this program conducts local linear regression to estimate conditional average treatment effect function.
 See {browse "https://doi.org/10.1002/jae.2574":{it:this paper}} for details.
@@ -48,7 +48,7 @@ See {browse "https://doi.org/10.1002/jae.2574":{it:this paper}} for details.
 {title:Dependencies}
 
 {pstd}
-{cmd:drcate} requires the {cmd:moremata}
+{cmd:drcateCV} requires the {cmd:moremata}
 package. Type
 
         {com}. {net "describe moremata, from(http://fmwww.bc.edu/repec/bocode/m/)":ssc describe moremata}{txt}
@@ -65,7 +65,7 @@ package. Type
 {opt alpha} is a real number between 0 and 1. The default is 0.05. 
 
 {phang}
-{opt bwidth} is a positive real number. By default, this value is obtained by multiplying n^(1/5)*n^(-2/7) by the bandwidth determined by rule-of-thumb bandwidth.
+{opt bwidth} is a positive real number. By default, this value is obtained by multiplying n^(1/5)*n^(-2/7) by the bandwidth determined by the cross-validation.
 
 
 {dlgtab:Graph}
@@ -82,7 +82,7 @@ package. Type
 {marker results}
 {title:Results} 
 
-{pstd}{cmd:drcate} gives a graph of doubly robust conditional average treatment effect function and uniform confidence band. 
+{pstd}{cmd:drcateCV} gives a graph of doubly robust conditional average treatment effect function and uniform confidence band. 
 
 
 {marker example}{...}
@@ -93,17 +93,16 @@ package. Type
 {phang2}{cmd:. webuse cattaneo2}{p_end}
 
 {pstd} Heterogeneity of the average treatment effect of "alcohol" on "bweight" with respect to "mage" {p_end}
-{phang2}{cmd:. drcate bweight alcohol mage medu fage, ps("logit") bwidth(.781) graph("on") ci("on") ate("on")}{p_end}
+{phang2}{cmd:. drcateCV bweight alcohol mage medu fage, ps("logit") bwidth(.781) graph("on") ci("on") ate("on")}{p_end}
 
-{pstd} Using default bandwidth by rule-of-thumb {p_end}
-{phang2}{cmd:. drcate bweight alcohol mage medu fage, ps("logit") graph("on") ci("on") ate("on")}{p_end}
-
+{pstd} Using default bandwidth by cross-validation {p_end}
+{phang2}{cmd:. drcateCV bweight alcohol mage medu fage, ps("logit") graph("on") ci("on") ate("on")}{p_end}
 
 {marker results}{...}
 {title:Stored results}
 
 {pstd}
-{cmd:drcate} stores the following in {cmd:e()}:
+{cmd:drcateCV} stores the following in {cmd:e()}:
 
 {synoptset 20 tabbed}{...}
 {p2col 5 20 24 2: Scalar}{p_end}

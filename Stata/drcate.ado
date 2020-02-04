@@ -7,7 +7,7 @@ capture prog drop drcate
 program define drcate, eclass
     
 	version 14.0
-	syntax varlist(min=4 numeric) [if][in][, alpha(real 0.05) bwidth(real 0) graph(string) ci(string) ps(string) ate(string)]
+	syntax varlist(min=4 numeric)[, alpha(real 0.05) bwidth(real 0) graph(string) ci(string) ps(string) ate(string)]
 	
 	capture drop ghat
 	capture drop x_axis
